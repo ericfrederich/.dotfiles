@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Set install command based on available package manager
+install_command=""
+for cmd in "nala install -y" "apt install -y" "dnf install -y"; do
+    package_manager=$(echo "$cmd" | cut -d' ' -f1)
+    if command -v "$package_manager" &> /dev/null; then
+        install_command="$cmd"
+        break
+    fi
+done
+
+if [ -z "$install_command" ]; then
+    echo "Error: No supported package manager found (nala, apt, or dnf)"
+    exit 1
+fi
+
+echo "Using package manager: $install_command"
+
+# `perl` is still needed for the OMB theme swap script below;
+# `stow` is no longer required because chezmoi replaces it.
+required_packages="curl git hostname perl"
+
+echo "Installing required packages: $required_packages"
+sudo $install_command $required_packages
+
+{{ if .isWsl -}}
+# Install keychain if running inside WSL
+sudo $install_command keychain
+{{- end }}

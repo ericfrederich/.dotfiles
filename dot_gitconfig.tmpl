@@ -1,0 +1,54 @@
+# This file is managed by chezmoi.
+# Any changes in here will make the source repository dirty on the next
+# `chezmoi re-add` unless you also update dot_gitconfig.tmpl.
+# If it's dirty it's likely because you configured something via `git config --global`.
+
+# DO NOT PUT USER-SPECIFIC STUFF HERE
+# Instead, it lives in ~/.gitconfig.local which is rendered from
+# dot_gitconfig.local.tmpl using data collected during `chezmoi init`.
+
+[core]
+	excludesfile = ~/.gitignore.global
+	pager = diff-so-fancy | less --tabs=4 -RF
+
+[diff]
+	tool = tkdiff
+
+[merge]
+	tool = tkdiff
+
+# this causes some tests to fail, so comment out while doing development on pre-commit-hooks
+# https://github.com/pre-commit/pre-commit-hooks/issues/1036
+[init]
+	defaultBranch = main
+
+[alias]
+	lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+	# Light versions... no --all
+	lgl1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
+	lgl2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+	lg = !git lg1
+	lgl = !git lgl1
+	fap = fetch --all --prune
+	ignore = "!gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}; gi"
+	reparent = "!reparent() { [ \"$#\" -eq 2 ] || { echo \"Need exactly two arguments\"; return 1; } && branch_name=$(git rev-parse --abbrev-ref HEAD) && tree_hash=$(git rev-parse HEAD^{tree}) && commit_hash=$(git commit-tree -p \"$1\" -m \"$2\" $tree_hash) && git reset --hard $commit_hash ;}; reparent"
+	vanity-date = "!vanitydate() { GIT_AUTHOR_DATE=\"407891580 -0600\" GIT_COMMITTER_DATE=\"407891580 -0600\" git commit --amend --no-edit --reset-author --allow-empty; }; vanitydate"
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+{{- if .isWsl }}
+
+[difftool "bc"]
+	cmd = BComp.exe \"$(wslpath -aw $LOCAL)\" \"$(wslpath -aw $REMOTE)\"
+[mergetool "bc"]
+	cmd = BComp.exe \"$(wslpath -aw $BASE)\" \"$(wslpath -aw $LOCAL)\" \"$(wslpath -aw $REMOTE)\" \"$(wslpath -aw $MERGED)\"
+{{- end }}
+
+[include]
+	# Rendered from chezmoi init prompts. Contains your name and email so this
+	# repository can be used by multiple users without leaking identity.
+	path = ~/.gitconfig.local
