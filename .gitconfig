@@ -1,13 +1,22 @@
-[init]
-	defaultBranch = main
 [user]
 	name = Eric L Frederich
 	email = eric.frederich@gmail.com
+
+[core]
+	excludesfile = ~/.gitignore_global
+	pager = diff-so-fancy | less --tabs=4 -RF
+
 [diff]
 	tool = tkdiff
-[core]
-	excludesFile = /home/eric/.gitignore.global
-	pager = diff-so-fancy | less --tabs=4 -RFX
+
+[merge]
+	tool = tkdiff
+
+# this causes some tests to fail, so comment out while doing development on pre-commit-hooks
+# https://github.com/pre-commit/pre-commit-hooks/issues/1036
+[init]
+	defaultBranch = main
+
 [alias]
 	lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
@@ -19,3 +28,7 @@
 	ignore = "!gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}; gi"
 	reparent = "!reparent() { [ \"$#\" -eq 1 ] || { echo \"Need exactly one argument\"; return 1; } && branch_name=$(git rev-parse --abbrev-ref HEAD) && tree_hash=$(git rev-parse HEAD^{tree}) && commit_hash=$(git commit-tree -p \"$1\" -m \"squashed ${branch_name}\" $tree_hash) && git reset --hard $commit_hash ;}; reparent"
 	vanity-date = "!vanitydate() { GIT_AUTHOR_DATE=\"407891580 -0600\" GIT_COMMITTER_DATE=\"407891580 -0600\" git commit --amend --no-edit --reset-author; }; vanitydate"
+
+# Allow local overrides (i.e. for work)
+[include]
+	path = ~/.gitconfig.local
