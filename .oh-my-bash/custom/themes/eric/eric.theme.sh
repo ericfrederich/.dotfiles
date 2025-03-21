@@ -1,6 +1,6 @@
 #! bash oh-my-bash.module
 
-# Based on zork
+# Based on zork (last updated 4b9567033052f0e81537ec51f8c58d0e5b0cfaab)
 
 export PROMPT_DIRTRIM=4
 
