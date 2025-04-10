@@ -8,3 +8,8 @@ alias sucsn="python3 -c \"import fileinput; from collections import Counter; c =
 
 alias hili='python -m rich.syntax -b default'
 alias tree='tree -I .git'
+
+# Create an alias that takes args
+# https://stackoverflow.com/a/42466441
+# puse: "poetry use", set up a poetry project to use a specific version of python from pyenv
+alias puse='f(){ [ "$#" -eq 1 ] || { echo "Need exactly one argument"; return 1; } && pyenv shell "$1" && poetry env use $(pyenv which python3) && pyenv shell --unset; unset -f f; }; f'
