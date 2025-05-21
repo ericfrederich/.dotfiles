@@ -29,6 +29,12 @@
 	reparent = "!reparent() { [ \"$#\" -eq 1 ] || { echo \"Need exactly one argument\"; return 1; } && branch_name=$(git rev-parse --abbrev-ref HEAD) && tree_hash=$(git rev-parse HEAD^{tree}) && commit_hash=$(git commit-tree -p \"$1\" -m \"squashed ${branch_name}\" $tree_hash) && git reset --hard $commit_hash ;}; reparent"
 	vanity-date = "!vanitydate() { GIT_AUTHOR_DATE=\"407891580 -0600\" GIT_COMMITTER_DATE=\"407891580 -0600\" git commit --amend --no-edit --reset-author; }; vanitydate"
 
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
 # Allow local overrides (i.e. for work)
 [include]
 	path = ~/.gitconfig.local
