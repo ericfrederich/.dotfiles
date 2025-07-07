@@ -89,8 +89,8 @@ function _omb_theme_PROMPT_COMMAND {
   # Make WSL, SSH, and local prompts look different
   if [[ -n "$SSH_CLIENT" || -n "$SSH_TTY" || -n "$SSH_CONNECTION" ]]; then
       # SSH session - use red/orange colors to indicate remote
-      local my_ps_user_color="${_omb_prompt_bold_red}"
-      local my_ps_host_color="🤖${_omb_prompt_red}"
+      local my_ps_user_color="${_omb_prompt_teal}"
+      local my_ps_host_color="🤖${_omb_prompt_gray}"
   elif [[ -n "$WSL_DISTRO_NAME" ]]; then
       # WSL - use green/yellow
       local my_ps_user_color="${_omb_prompt_green}"
