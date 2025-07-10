@@ -1,6 +1,11 @@
-[user]
-	name = Eric L Frederich
-	email = eric.frederich@gmail.com
+# This file is tracked in a dotfiles repository.
+# Any changes in here will make the repository dirty.
+# If it's dirty it's likely because you configured something via `git config --global`.
+
+# DO NOT PUT USER-SPECIFIC STUFF HERE
+# Instead, put it in ~/.gitconfig.local via
+#  git config -f ~/.gitconfig.local user.name
+#  git config -f ~/.gitconfig.local user.email
 
 [core]
 	excludesfile = ~/.gitignore.global
@@ -36,6 +41,8 @@
 	process = git-lfs filter-process
 	required = true
 
-# Allow local overrides (i.e. for work)
 [include]
+	# This file typically shouldn't stored in the dotfiles repository.
+	# This should contain your name, email, and other personal settings.
+	# This allows the dotfiles repository to be used by multiple users.
 	path = ~/.gitconfig.local
