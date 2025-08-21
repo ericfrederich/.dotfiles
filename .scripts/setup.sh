@@ -35,7 +35,8 @@ required_packages="curl git stow perl"
 echo "Installing required packages: $required_packages"
 sudo $install_command $required_packages
 
-if [ -n "$WSL_DISTRO_NAME" ]; then
+# Install keychain if running inside WSL
+if grep -qEi "(microsoft|wsl)" /proc/version &> /dev/null; then
     sudo $install_command keychain
 fi
 
