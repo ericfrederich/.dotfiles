@@ -2,7 +2,7 @@ if [ -n "$WSL_DISTRO_NAME" ]; then
 
 # https://stackoverflow.com/questions/52423626/remember-git-passphrase-in-wsl
 keychain --nogui ~/.ssh/id_rsa
-. ~/.keychain/$(hostname)-sh
+. ~/.keychain/${NAME}-sh
 
 export GPG_TTY=$(tty)
 
