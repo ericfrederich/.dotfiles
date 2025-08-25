@@ -29,7 +29,7 @@ fi
 
 echo "Using package manager: $install_command"
 
-required_packages="curl git stow perl"
+required_packages="curl git hostname perl stow"
 
 # Install required packages
 echo "Installing required packages: $required_packages"
