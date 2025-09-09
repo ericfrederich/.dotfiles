@@ -9,4 +9,5 @@ for candidate in $(which -a tkdiff 2>/dev/null | awk '!seen[$0]++'); do
 done
 
 # fallback to the versioned executable from this dotfiles repo
-exec _tkdiff-6.0 "$@"
+# 5.4 is the latest release that can still ignore whitespaces
+exec _tkdiff-5.4 "$@"
