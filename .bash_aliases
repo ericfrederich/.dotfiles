@@ -18,3 +18,6 @@ alias nd2a="sed '1s/^/[/; \$!s/\$/,/; \$s/\$/]/'"
 # https://stackoverflow.com/a/42466441
 # puse: "poetry use", set up a poetry project to use a specific version of python from pyenv
 alias puse='f(){ [ "$#" -eq 1 ] || { echo "Need exactly one argument"; return 1; } && pyenv shell "$1" && poetry env use $(pyenv which python3) && pyenv shell --unset; unset -f f; }; f'
+
+# print markdown
+alias pmd='f(){ [ "$#" -eq 1 ] || { echo "Need exactly one argument"; return 1; } && python3 -c "from rich.console import Console; from rich.markdown import Markdown; Console().print(Markdown(open(\"$1\").read()))"; unset -f f; }; f'
