@@ -46,3 +46,4 @@
 	# This should contain your name, email, and other personal settings.
 	# This allows the dotfiles repository to be used by multiple users.
 	path = ~/.gitconfig.local
+	path = ~/.gitconfig.wsl

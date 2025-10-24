@@ -64,7 +64,14 @@ fi
 mkdir -p ~/.local/bin
 
 cd ~/.dotfiles
-stow .
+
+# Install keychain if running inside WSL
+if grep -qEi "(microsoft|wsl)" /proc/version &> /dev/null; then
+    stow .
+else
+    # If not on WSL do not stow WSL specific files
+    stow --igore \.wsl .
+fi
 
 # Configure Git user settings
 echo "Checking Git configuration..."

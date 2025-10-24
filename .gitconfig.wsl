@@ -1,0 +1,4 @@
+[difftool "bc"]
+	cmd = BComp.exe \"$(wslpath -aw $LOCAL)\" \"$(wslpath -aw $REMOTE)\"
+[mergetool "bc"]
+	cmd = BComp.exe \"$(wslpath -aw $BASE)\" \"$(wslpath -aw $LOCAL)\" \"$(wslpath -aw $REMOTE)\" \"$(wslpath -aw $MERGED)\"
