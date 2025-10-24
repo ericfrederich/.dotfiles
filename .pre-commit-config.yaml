@@ -5,7 +5,7 @@ repos:
     rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c  # frozen: v6.0.0
     hooks:
     -   id: trailing-whitespace
-        exclude: (.local/bin/diff-so-fancy$)
+        exclude: (.local/bin/diff-so-fancy$|\.local/bin/_tkdiff-[0-9\.]*$)
     -   id: end-of-file-fixer
     -   id: check-yaml
         args: [--unsafe]
@@ -23,4 +23,4 @@ repos:
   rev: a30f0d816e5062a67d87c8de753cfe499672b959  # frozen: v1.5.5
   hooks:
   - id: remove-tabs
-    exclude: (Makefile$|\.bat$|\.cmake$|\.eps$|\.fits$|\.opt$|.local/bin/diff-so-fancy|\.gitconfig)
+    exclude: (Makefile$|\.bat$|\.cmake$|\.eps$|\.fits$|\.opt$|.local/bin/diff-so-fancy|\.gitconfig|\.local/bin/_tkdiff-[0-9\.]*$)
