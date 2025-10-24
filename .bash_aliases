@@ -7,7 +7,7 @@
 alias sucsn="python3 -c \"import fileinput; from collections import Counter; c = Counter(line.removesuffix('\n') for line in fileinput.input()); print('\n'.join(f'{c}: {k}' for k, c in reversed(c.most_common())))\""
 alias sucsnr="python3 -c \"import fileinput; from collections import Counter; c = Counter(line.removesuffix('\n') for line in fileinput.input()); print('\n'.join(f'{c}: {k}' for k, c in c.most_common()))\""
 
-alias hili='python -m rich.syntax -b default'
+alias hili='python3 -m rich.syntax -b default'
 alias tree='tree -I .git'
 
 # Convert a newline delimited json file into an array
