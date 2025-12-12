@@ -22,3 +22,7 @@ alias puse='f(){ [ "$#" -eq 1 ] || { echo "Need exactly one argument"; return 1;
 
 # print markdown
 alias pmd='f(){ [ "$#" -eq 1 ] || { echo "Need exactly one argument"; return 1; } && python3 -c "from rich.console import Console; from rich.markdown import Markdown; Console().print(Markdown(open(\"$1\").read()))"; unset -f f; }; f'
+
+if grep -qEi "(microsoft|wsl)" /proc/version &> /dev/null; then
+    alias e=explorer.exe
+fi
