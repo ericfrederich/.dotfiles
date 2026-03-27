@@ -1,0 +1,11 @@
+[Unit]
+Description=Linux Subsystem for Linux – host-side bridge for Incus containers
+
+[Service]
+ExecStart=%h/.local/bin/lsl-listener
+Restart=always
+RestartSec=2
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+
+[Install]
+WantedBy=default.target

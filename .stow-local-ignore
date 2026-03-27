@@ -1,4 +1,6 @@
 \.scripts
+.*\.md
+^\.pre-commit-config.yaml
 
 # When you create a .stow-local-ignore file stow will ignore the defaults.
 # Below are the defaults copied as per

@@ -68,6 +68,9 @@ fi
 [[ -d ~/.ssh ]] || install -d -m 700 ~/.ssh
 [[ -d ~/.ssh/config.d ]] || install -d -m 700 ~/.ssh/config.d
 
+# same for some other directories we will stow into
+mkdir -p ~/.config/systemd/user
+
 cd ~/.dotfiles
 
 if grep -qEi "(microsoft|wsl)" /proc/version &> /dev/null; then

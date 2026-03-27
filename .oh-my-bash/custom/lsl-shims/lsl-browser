@@ -1,0 +1,9 @@
+#!/bin/bash
+FIFO="/mnt/lsl-fifo"
+if [[ ! -p "$FIFO" ]]; then
+    echo "Error: LSL bridge not available (host listener not running?)" >&2
+    exit 1
+fi
+for url in "$@"; do
+    echo "browser:$url" > "$FIFO"
+done

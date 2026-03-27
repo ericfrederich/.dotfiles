@@ -20,7 +20,20 @@ repos:
         args: ["--allow-missing-credentials"]
 
 - repo: https://github.com/Lucas-C/pre-commit-hooks
-  rev: a30f0d816e5062a67d87c8de753cfe499672b959  # frozen: v1.5.5
+  rev: ad1b27d73581aa16cca06fc4a0761fc563ffe8e8  # frozen: v1.5.6
   hooks:
   - id: remove-tabs
     exclude: (Makefile$|\.bat$|\.cmake$|\.eps$|\.fits$|\.opt$|.local/bin/diff-so-fancy|\.gitconfig|\.local/bin/_tkdiff-[0-9\.]*$)
+
+- repo: https://github.com/psf/black
+  rev: c6755bb741b6481d6b3d3bb563c83fa060db96c9  # frozen: 26.3.1
+  hooks:
+  - id: black
+    args: ["--line-length", "120"]
+
+- repo: https://github.com/pycqa/isort
+  rev: a333737ed43df02b18e6c95477ea1b285b3de15a  # frozen: 8.0.1
+  hooks:
+  - id: isort
+    args: ["--profile", "black"]
+    name: isort (python)

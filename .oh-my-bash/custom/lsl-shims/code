@@ -1,0 +1,20 @@
+#!/bin/bash
+FIFO="/mnt/lsl-fifo"
+if [[ ! -p "$FIFO" ]]; then
+    echo "Error: LSL bridge not available (host listener not running?)" >&2
+    exit 1
+fi
+HOST="$(hostname)"
+if [[ $# -eq 0 || "$1" == "." ]]; then
+    TARGET="$(pwd)"
+elif [[ "$1" == /* ]]; then
+    TARGET="$1"
+else
+    TARGET="$(cd "$1" 2>/dev/null && pwd || echo "$(pwd)/$1")"
+fi
+# Work around VS Code bug: directories starting with '.' fail to open
+# unless the path has a trailing slash.
+if [[ -d "$TARGET" ]]; then
+    TARGET="${TARGET%/}/"
+fi
+echo "code:${HOST}:${TARGET}" > "$FIFO"

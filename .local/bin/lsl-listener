@@ -1,0 +1,39 @@
+#!/bin/bash
+# lsl-listener — "Linux Subsystem for Linux" host-side bridge.
+# Reads newline-delimited commands from a FIFO shared into Incus containers.
+#
+# Protocol:
+#   code:<host>:<path>       — open VS Code via Remote-SSH
+#   browser:<url>            — open URL in the host's default browser
+
+FIFO="$HOME/.lsl-fifo"
+
+# Create the FIFO if it doesn't exist
+if [[ ! -p "$FIFO" ]]; then
+  mkfifo -m 600 "$FIFO" || {
+    echo "Failed to create FIFO: $FIFO" >&2
+    exit 1
+  }
+fi
+
+while true; do
+  while IFS= read -r line; do
+    IFS=: read -r cmd rest <<<"$line"
+    case "$cmd" in
+    code)
+      IFS=: read -r host path <<<"$rest"
+      if [[ -n "$host" && -n "$path" ]]; then
+        code --remote "ssh-remote+${host}" "$path" &
+      fi
+      ;;
+    browser)
+      if [[ -n "$rest" ]]; then
+        xdg-open "$rest" &
+      fi
+      ;;
+    *)
+      echo "lsl-listener: unknown command: $cmd" >&2
+      ;;
+    esac
+  done <"$FIFO"
+done
