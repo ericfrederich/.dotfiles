@@ -61,7 +61,12 @@ fi
 # Create a `~/.local/bin` directory.  This is required because we will later stow files that are in there.
 # If we don't do this then stow will symlink the directory instead of individual files.
 # If that happens new files placed inside of ~/.local/bin will make this repo dirty.
-mkdir -p ~/.local/bin
+[[ -d ~/.local ]] || install -d -m 775 ~/.local
+[[ -d ~/.local/bin ]] || install -d -m 775 ~/.local/bin
+
+# same for ~/.ssh and ~/.ssh/config.d
+[[ -d ~/.ssh ]] || install -d -m 700 ~/.ssh
+[[ -d ~/.ssh/config.d ]] || install -d -m 700 ~/.ssh/config.d
 
 cd ~/.dotfiles
 
