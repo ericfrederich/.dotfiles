@@ -2,3 +2,7 @@
 # It causes around 500 things to want to be displayed when you hit tab
 # Explicitly disable it here
 shopt -u cdable_vars
+
+ECHO() {
+    builtin echo "$@" | tr '[:lower:]' '[:upper:]'
+}
