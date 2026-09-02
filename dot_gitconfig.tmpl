@@ -1,11 +1,11 @@
-# This file is tracked in a dotfiles repository.
-# Any changes in here will make the repository dirty.
+# This file is managed by chezmoi.
+# Any changes in here will make the source repository dirty on the next
+# `chezmoi re-add` unless you also update dot_gitconfig.tmpl.
 # If it's dirty it's likely because you configured something via `git config --global`.
 
 # DO NOT PUT USER-SPECIFIC STUFF HERE
-# Instead, put it in ~/.gitconfig.local via
-#  git config -f ~/.gitconfig.local user.name
-#  git config -f ~/.gitconfig.local user.email
+# Instead, it lives in ~/.gitconfig.local which is rendered from
+# dot_gitconfig.local.tmpl using data collected during `chezmoi init`.
 
 [core]
 	excludesfile = ~/.gitignore.global
@@ -40,10 +40,15 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+{{- if .isWsl }}
+
+[difftool "bc"]
+	cmd = BComp.exe \"$(wslpath -aw $LOCAL)\" \"$(wslpath -aw $REMOTE)\"
+[mergetool "bc"]
+	cmd = BComp.exe \"$(wslpath -aw $BASE)\" \"$(wslpath -aw $LOCAL)\" \"$(wslpath -aw $REMOTE)\" \"$(wslpath -aw $MERGED)\"
+{{- end }}
 
 [include]
-	# This file typically shouldn't stored in the dotfiles repository.
-	# This should contain your name, email, and other personal settings.
-	# This allows the dotfiles repository to be used by multiple users.
+	# Rendered from chezmoi init prompts. Contains your name and email so this
+	# repository can be used by multiple users without leaking identity.
 	path = ~/.gitconfig.local
-	path = ~/.gitconfig.wsl

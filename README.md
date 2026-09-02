@@ -3,7 +3,6 @@
 ## Installation
 
 ```bash
-cd ~ && git clone https://github.com/ericfrederich/.dotfiles.git
-cd ~/.dotfiles
-./.scripts/setup.sh
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin
+chezmoi init --apply https://github.com/ericfrederich/.dotfiles.git
 ```
